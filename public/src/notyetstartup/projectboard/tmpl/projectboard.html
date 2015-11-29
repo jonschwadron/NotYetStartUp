@@ -1,0 +1,195 @@
+<!-- Projects -->
+<div class="list-area-animation"
+     ng-class="{'list-area-expanded':!projectboard.detailsVisible}">
+    <div class="list-wrapper">
+        <ul class="list my-repeat-animation"
+            ng-repeat="status in projectboard.statuses">
+            <h3 class="status">{{status.name}}</h3>
+            <hr/>
+            <li userproject
+                ng-repeat="project in projectboard.projects | filter: {status:status.name}"
+                drag-container="project" mime-type="application/x-nysu-status"
+                drop-container="" accepts="['application/x-nysu-status']"
+                class="project my-repeat-animation"
+                ng-click="projectboard.setCurrentProject(project)">
+
+                <div drop-target="top" on-drag-enter="projectboard.insertAdjacent(project, data, true)" on-drop="projectboard.finalizeDrop(data)"></div>
+                <div drop-target="bottom" on-drag-enter="projectboard.insertAdjacent(project, data, false)" on-drop="projectboard.finalizeDrop(data)"></div>
+
+                <article>
+                    <div>
+                        <button type="button" class="close" ng-click="userProject.deleteProject(project.id)">
+                            ×
+                        </button>
+                        <p class="title">{{project.title}}</p>
+                    </div>
+                    <div class="type-bar {{project.type}}"></div>
+                    <div>
+                        <p>{{project.description}}</p>
+                    </div>
+                </article>
+            </li>
+            <div
+                class="emptystatus"
+                drop-container="" accepts="['application/x-nysu-status']"
+                on-drop="projectboard.finalizeDrop(data)"
+                on-drag-enter="projectboard.changeStatus(data, status)"
+                ng-if="projectboard.isEmptyStatus(status)">
+            </div>
+        </ul>
+    </div>
+</div>
+
+
+<!-- Project DETAILS -->
+<div class="details details-animation"
+     ng-class="{'details-visible':projectboard.detailsVisible}">
+    <div class="details-nav">
+        <div ng-if="!projectboard.detailsVisible">
+            <button class="btn pull-left btn-default"
+                    ng-click="projectboard.setDetailsVisible(true)">
+                <span class="glyphicon glyphicon-arrow-left"></span>
+            </button>
+        </div>
+        <div ng-if="projectboard.detailsVisible">
+            <button class="btn pull-right btn-default"
+                    ng-click="projectboard.setDetailsVisible(false)">
+                <span class="glyphicon glyphicon-arrow-right"></span>
+            </button>
+        </div>
+    </div>
+
+    <div ng-if="projectboard.detailsVisible" class="my-fade-animation">
+        <h3>Card Details</h3>
+
+        <form name="projectboard.detailsForm" novalidate="">
+            <div class="form-group">
+                <div class="controls">
+                    <label class="control-label" for="inputTitle">*Title</label>
+                    <input class="form-control" type="text" id="inputTitle" name="inputTitle"
+                           placeholder="Title" ng-model="projectboard.editedProject.title"
+                           ng-required="true" ng-minlength="3" ng-maxlength="30">
+
+                    <div class="alert alert-warning"
+                         ng-messages="projectboard.detailsForm.inputTitle.$error"
+                         ng-if="projectboard.showMessages('inputTitle')">
+
+                        <div ng-message="required">
+                            <small>Required!</small>
+                        </div>
+                        <div ng-message="minlength">
+                            <small>Too short!</small>
+                        </div>
+                        <div ng-message="maxlength">
+                            <small>Too long!</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="inputStatus">*Status</label>
+
+                <div class="controls">
+                    <select id="inputStatus" name="inputStatus" class="form-control" ng-model="projectboard.editedProject.status" ng-options="l.name as l.name for l in projectboard.statuses" ng-required="true">
+                        <option value="">Select Status</option>
+                    </select>
+
+                    <div
+                      ng-class="{'alert alert-error alert-warning': projectboard.detailsForm.inputStatus.$invalid}"
+                      ng-messages="projectboard.detailsForm.inputStatus.$error"
+                      ng-if="projectboard.showMessages('inputStatus')">
+
+                      <div ng-message="required">
+                        <small>Required!</small>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="inputType">*Type</label>
+
+                <div class="controls">
+                    <select id="inputType" name="inputType" class="form-control" ng-model="projectboard.editedProject.type" ng-options="t.name as t.name for t in projectboard.types" ng-required="true">
+                        <option value="">Select Type</option>
+                    </select>
+
+                    <div
+                      ng-class="{'alert alert-error alert-warning': projectboard.detailsForm.inputType.$invalid}"
+                      ng-messages="projectboard.detailsForm.inputType.$error"
+                      ng-if="projectboard.showMessages('inputType')">
+
+                      <div ng-message="required">
+                        <small>Required!</small>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="inputDescription">Description</label>
+
+                <div class="controls">
+                    <textarea id="inputDescription" name="inputDescription" class="form-control" placeholder="Description" rows="3" ng-model="projectboard.editedProject.description"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="inputAcceptance">Acceptance Criteria</label>
+
+                <div class="controls">
+                    <textarea id="inputAcceptance" name="inputAcceptance" class="form-control" placeholder="Acceptance Criteria" rows="3" ng-model="projectboard.editedProject.criteria"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">*Reporter</label>
+
+                <div class="controls">
+                    <select ng-model="projectboard.editedProject.reporter" class="form-control"
+                        name="inputReporter" ng-required="true" ng-options="user.id as user.name for user in projectboard.users">
+                        <option value="">Please select...</option>
+                    </select>
+                    <div ng-class="{'alert alert-error alert-warning': projectboard.detailsForm.inputReporter.$invalid}"
+                         ng-messages="projectboard.detailsForm.inputReporter.$error"
+                         ng-if="projectboard.showMessages('inputReporter')">
+
+                      <div ng-message="required">
+                        <small>Required!</small>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">*Assignee</label>
+
+                <div class="controls">
+                    <select ng-model="projectboard.editedProject.assignee" class="form-control"
+                        name="inputAssignee" ng-required="true" ng-options="user.id as user.name for user in projectboard.users">
+                        <option value="">Please select...</option>
+                    </select>
+
+                    <div
+                      ng-class="{'alert alert-error alert-warning': projectboard.detailsForm.inputAssignee.$invalid}"
+                      ng-messages="projectboard.detailsForm.inputAssignee.$error"
+                      ng-if="projectboard.showMessages('inputAssignee')">
+
+                      <div ng-message="required">
+                        <small>Required!</small>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <hr>
+        <div ng-if="projectboard.currentProject">
+            <button class="btn btn-default" ng-click="projectboard.updateCancel()">
+                Cancel
+            </button>
+            <button class="btn pull-right btn-default"
+                    ng-disabled="projectboard.detailsForm.$invalid"
+                    ng-click="projectboard.updateProject()">Update</button>
+        </div>
+        <div ng-if="!projectboard.currentProject">
+            <button class="btn pull-right btn-default"
+                    ng-disabled="projectboard.detailsForm.$invalid"
+                    ng-click="projectboard.createProject()">New Project</button>
+        </div>
+    </div>
+</div>
