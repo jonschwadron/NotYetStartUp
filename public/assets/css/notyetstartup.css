@@ -58,7 +58,7 @@ body.loading .modal {
     width: 100%;
 }
 
-.story article {
+.project article {
     background-image: url(../img/note-bg.png);
     height: 145px;
     padding: 10px;
@@ -66,11 +66,11 @@ body.loading .modal {
     cursor: pointer;
 }
 
-.story .title {
+.project .title {
     font-size: 24px;
 }
 
-.story:hover {
+.project:hover {
     opacity: 0.9;
 }
 
