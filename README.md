@@ -1,4 +1,6 @@
-# NotYetStartUp
+#MEAN Stack App - NotYetStartUp
+
+![FunkeBot DevOps](https://cloud.githubusercontent.com/assets/3240217/11468585/c52b564e-971e-11e5-83eb-02dc9d830170.png))
 
 instructions
 
