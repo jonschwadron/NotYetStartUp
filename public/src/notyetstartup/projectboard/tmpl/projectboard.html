@@ -1,10 +1,10 @@
-<!-- Projects -->
-<div style="margin-left: 350px; margin-top: 50px;" class="list-area-animation"
+<!-- PROJECT DASHBOARD -->
+<div style="margin-left: 250px; margin-top: 10px;" class="list-area-animation"
      ng-class="{'list-area-expanded':!projectboard.detailsVisible}">
+
     <div class="list-wrapper">
         <ul class="list my-repeat-animation"
-            <h3 style="color:white;" class="status"><strong>Projects:</strong></h3>
-            <hr/>
+            <h2 style="color:white; text-align: center;" class="status"><strong>Project Dashboard:</strong></h2><br><br>
             <!--
             <li userproject
                 ng-repeat="project in projectboard.projects | filter: {status:status.name}"
@@ -56,10 +56,9 @@
                         <b>Say hi to</b>
                         <a href="mailto:{{::project.contact}}">this person</a>!
                         </p>
-                        <button>View</button>
-                        <button>Join</button>
+                        <button type="button" class="btn btn-primary btn-sm">View</button>
+                        <button type="button" class="btn btn-primary btn-sm">Join</button>
                     </div>
-
                 </article>
             </li>
             <!-- <div
