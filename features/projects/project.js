@@ -6,14 +6,14 @@ var mongoose = require('mongoose'),
 
 
 var ProjectSchema = new Schema({
-  assignee: Definitions.string(100, true),
-  criteria: Definitions.string(100, false),
+  requestor: Definitions.string(100, true),
+  requestorRole: Definitions.string(100, true),
+  roleNeeded: Definitions.string(100, true),
   description: Definitions.string(100, false),
-  reporter: Definitions.string(100, true),
-  status: Definitions.string(100, true),
-  title: Definitions.string(100, true),
-  type: Definitions.string(100, true),
-  userId: Definitions.string(100, true)
+  assignee: Definitions.string(100, false),
+  contact: Definitions.string(100, true),
+  status: Definitions.string(100, false),
+  userId: Definitions.string(100, false)
 });
 
 ProjectSchema.virtual('id').get(function() {

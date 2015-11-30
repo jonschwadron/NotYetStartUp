@@ -1,1 +1,0 @@
-angular.module('Notyetstartup.Dashboard', ['Notyetstartup.Common']);

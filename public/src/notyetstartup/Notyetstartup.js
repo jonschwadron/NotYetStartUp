@@ -4,7 +4,6 @@ var myModule = angular.module('Notyetstartup', [
   'firebase',
   'ngMessages',
   'Notyetstartup.Common',
-  'Notyetstartup.Dashboard',
   'Notyetstartup.Login',
   'Notyetstartup.Projectboard',
   'Notyetstartup.User',
@@ -21,12 +20,6 @@ myModule.config(function($routeProvider, $httpProvider, $provide,
       templateUrl: 'src/notyetstartup/projectboard/tmpl/projectboard.html',
       controller: 'ProjectboardCtrl',
       controllerAs: 'projectboard',
-      requiresLogin: true
-    })
-    .when('/dashboard', {
-      templateUrl: 'src/notyetstartup/dashboard/tmpl/dashboard.html',
-      controller: 'DashboardCtrl',
-      controllerAs: 'dashboard',
       requiresLogin: true
     })
     .when('/users', {
@@ -160,16 +153,14 @@ myModule.run(function($rootScope, LoadingService, LoginService) {
   });
 });
 
-myModule.value('STORY_STATUSES', [{
-  name: 'To Do'
+myModule.value('ROLE_TYPES', [{
+  name: 'programmer'
 }, {
-  name: 'In Progress'
+  name: 'business analyst'
 }, {
-  name: 'Code Review'
+  name: 'designer'
 }, {
-  name: 'QA Review'
-}, {
-  name: 'Verified'
+  name: 'other'
 }]);
 
 myModule.value('STORY_TYPES', [{

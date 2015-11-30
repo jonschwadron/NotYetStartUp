@@ -55,12 +55,6 @@ head.load({
 }, {
   file: 'src/notyetstartup/app/services/LoadingService.js'
 }, {
-  file: 'src/notyetstartup/dashboard/Dashboard.js'
-}, {
-  file: 'src/notyetstartup/dashboard/controllers/DashboardController.js'
-}, {
-  file: 'src/notyetstartup/dashboard/directives/ChartDirective.js'
-}, {
   file: 'src/notyetstartup/login/Login.js'
 }, {
   file: 'src/notyetstartup/login/controllers/LoginController.js'

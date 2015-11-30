@@ -2,7 +2,7 @@ html,
 html,
 body {
     background-color: #36393D;
-    background: url(../img/bg-wood.jpg);
+    /*background: url(../img/bg-wood.jpg);*/
     overflow: hidden;
 }
 
@@ -59,7 +59,7 @@ body.loading .modal {
 }
 
 .project article {
-    background-image: url(../img/note-bg.png);
+    background-image: url(../img/note-blank.png);
     height: 145px;
     padding: 10px;
     margin: 3px;

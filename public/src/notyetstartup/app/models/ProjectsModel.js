@@ -2,7 +2,7 @@ angular.module('Notyetstartup.Common')
   .service('ProjectsModel',
     function($http, EndpointConfigService, UtilsService) {
       var service = this,
-        MODEL = '/stories/';
+        MODEL = '/projects/';
 
       service.all = function() {
         return $http.get(EndpointConfigService.getUrl(
@@ -14,28 +14,28 @@ angular.module('Notyetstartup.Common')
           );
       };
 
-      service.fetch = function(story_id) {
+      service.fetch = function(project_id) {
         return $http.get(
-          EndpointConfigService.getUrlForId(MODEL, story_id)
+          EndpointConfigService.getUrlForId(MODEL, project_id)
         );
       };
 
-      service.create = function(story) {
+      service.create = function(project) {
         return $http.post(
           EndpointConfigService.getUrl(MODEL + EndpointConfigService.getCurrentFormat()),
-          story
+          project
         );
       };
 
-      service.update = function(story_id, story) {
+      service.update = function(project_id, project) {
         return $http.put(
-          EndpointConfigService.getUrlForId(MODEL, story_id), story
+          EndpointConfigService.getUrlForId(MODEL, project_id), project
         );
       };
 
-      service.destroy = function(story_id) {
+      service.destroy = function(project_id) {
         return $http.delete(
-          EndpointConfigService.getUrlForId(MODEL, story_id)
+          EndpointConfigService.getUrlForId(MODEL, project_id)
         );
       };
     });

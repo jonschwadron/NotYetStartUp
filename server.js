@@ -26,7 +26,7 @@ config.db(app);
 config.authentication(app);
 
 // Routes
-app.use('/api/clients/:userId/stories', require('./features/projects'));
+app.use('/api/clients/:userId/projects', require('./features/projects'));
 app.use('/api/clients/:userId/users', require('./features/users'));
 
 

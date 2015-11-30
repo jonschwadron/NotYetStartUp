@@ -3,9 +3,9 @@
      ng-class="{'list-area-expanded':!projectboard.detailsVisible}">
     <div class="list-wrapper">
         <ul class="list my-repeat-animation"
-            ng-repeat="status in projectboard.statuses">
-            <h3 class="status">{{status.name}}</h3>
+            <h3 class="status">HALP WANTED!</h3>
             <hr/>
+            <!--
             <li userproject
                 ng-repeat="project in projectboard.projects | filter: {status:status.name}"
                 drag-container="project" mime-type="application/x-nysu-status"
@@ -28,14 +28,44 @@
                         <p>{{project.description}}</p>
                     </div>
                 </article>
+            </li> -->
+            <li userproject
+                ng-repeat="project in projectboard.projects | filter: orderBy: 'createdAt':true"
+                drag-container="project" mime-type="application/x-nysu-status"
+                drop-container="" accepts="['application/x-nysu-status']"
+                class="project my-repeat-animation"
+                ng-click="projectboard.setCurrentProject(project)">
+
+                <!-- <div drop-target="top" on-drag-enter="projectboard.insertAdjacent(project, data, true)" on-drop="projectboard.finalizeDrop(data)"></div>
+                <div drop-target="bottom" on-drag-enter="projectboard.insertAdjacent(project, data, false)" on-drop="projectboard.finalizeDrop(data)"></div> -->
+
+                <article>
+                    <div>
+                      <button type="button" class="close" ng-click="userProject.deleteProject(project.id)">×</button>
+                    </div>
+                    <div>
+                        <p>
+                        {{::project.requestor}}<br>
+                        <b>is a</b>
+                        {{::project.requestorRole}}<br>
+                        <b>looking for a</b>
+                        {{::project.roleNeeded}}<br>
+                        <b>for help with</b>
+                        {{::project.description}}<br>
+                        <b>Say hi to</b>
+                        <a href="mailto:{{::project.contact}}">this person</a>!
+                        </p>
+                    </div>
+
+                </article>
             </li>
-            <div
+            <!-- <div
                 class="emptystatus"
                 drop-container="" accepts="['application/x-nysu-status']"
                 on-drop="projectboard.finalizeDrop(data)"
                 on-drag-enter="projectboard.changeStatus(data, status)"
                 ng-if="projectboard.isEmptyStatus(status)">
-            </div>
+            </div> -->
         </ul>
     </div>
 </div>
@@ -60,63 +90,60 @@
     </div>
 
     <div ng-if="projectboard.detailsVisible" class="my-fade-animation">
-        <h3>Card Details</h3>
+        <h3>Project Request</h3>
 
         <form name="projectboard.detailsForm" novalidate="">
+          <div class="form-group">
+              <label class="control-label">*Requestor</label>
+
+              <div class="controls">
+                  <select ng-model="projectboard.editedProject.requestor" class="form-control"
+                      name="inputReporter" ng-required="true" ng-options="user.id as user.name for user in projectboard.users">
+                      <option value="">Please select...</option>
+                  </select>
+                  <div ng-class="{'alert alert-error alert-warning': projectboard.detailsForm.inputReporter.$invalid}"
+                       ng-messages="projectboard.detailsForm.inputReporter.$error"
+                       ng-if="projectboard.showMessages('inputReporter')">
+
+                    <div ng-message="required">
+                      <small>Required!</small>
+                    </div>
+                  </div>
+              </div>
+          </div>
             <div class="form-group">
                 <div class="controls">
-                    <label class="control-label" for="inputTitle">*Title</label>
-                    <input class="form-control" type="text" id="inputTitle" name="inputTitle"
-                           placeholder="Title" ng-model="projectboard.editedProject.title"
-                           ng-required="true" ng-minlength="3" ng-maxlength="30">
+                    <label class="control-label" for="yourRole">*Your Role</label>
 
-                    <div class="alert alert-warning"
-                         ng-messages="projectboard.detailsForm.inputTitle.$error"
-                         ng-if="projectboard.showMessages('inputTitle')">
+                    <div class="controls">
+                        <select id="yourRole" name="yourRole" class="form-control" ng-model="projectboard.editedProject.requestorRole" ng-options="l.name as l.name for l in projectboard.roleTypes" ng-required="true">
+                            <option value="">Your role</option>
+                        </select>
 
-                        <div ng-message="required">
+                        <div
+                          ng-class="{'alert alert-error alert-warning': projectboard.detailsForm.yourRole.$invalid}"
+                          ng-messages="projectboard.detailsForm.yourRole.$error"
+                          ng-if="projectboard.showMessages('yourRole')">
+
+                          <div ng-message="required">
                             <small>Required!</small>
-                        </div>
-                        <div ng-message="minlength">
-                            <small>Too short!</small>
-                        </div>
-                        <div ng-message="maxlength">
-                            <small>Too long!</small>
+                          </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label" for="inputStatus">*Status</label>
+                <label class="control-label" for="inputServiceNeed">*What type of service you need?</label>
 
                 <div class="controls">
-                    <select id="inputStatus" name="inputStatus" class="form-control" ng-model="projectboard.editedProject.status" ng-options="l.name as l.name for l in projectboard.statuses" ng-required="true">
-                        <option value="">Select Status</option>
+                    <select id="inputServiceNeed" name="inputServiceNeed" class="form-control" ng-model="projectboard.editedProject.roleNeeded" ng-options="l.name as l.name for l in projectboard.roleTypes" ng-required="true">
+                        <option value="">Select Service</option>
                     </select>
 
                     <div
-                      ng-class="{'alert alert-error alert-warning': projectboard.detailsForm.inputStatus.$invalid}"
-                      ng-messages="projectboard.detailsForm.inputStatus.$error"
-                      ng-if="projectboard.showMessages('inputStatus')">
-
-                      <div ng-message="required">
-                        <small>Required!</small>
-                      </div>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label" for="inputType">*Type</label>
-
-                <div class="controls">
-                    <select id="inputType" name="inputType" class="form-control" ng-model="projectboard.editedProject.type" ng-options="t.name as t.name for t in projectboard.types" ng-required="true">
-                        <option value="">Select Type</option>
-                    </select>
-
-                    <div
-                      ng-class="{'alert alert-error alert-warning': projectboard.detailsForm.inputType.$invalid}"
-                      ng-messages="projectboard.detailsForm.inputType.$error"
-                      ng-if="projectboard.showMessages('inputType')">
+                      ng-class="{'alert alert-error alert-warning': projectboard.detailsForm.inputServiceNeed.$invalid}"
+                      ng-messages="projectboard.detailsForm.inputServiceNeed.$error"
+                      ng-if="projectboard.showMessages('inputServiceNeed')">
 
                       <div ng-message="required">
                         <small>Required!</small>
@@ -131,37 +158,28 @@
                     <textarea id="inputDescription" name="inputDescription" class="form-control" placeholder="Description" rows="3" ng-model="projectboard.editedProject.description"></textarea>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="control-label" for="inputAcceptance">Acceptance Criteria</label>
 
-                <div class="controls">
-                    <textarea id="inputAcceptance" name="inputAcceptance" class="form-control" placeholder="Acceptance Criteria" rows="3" ng-model="projectboard.editedProject.criteria"></textarea>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label">*Reporter</label>
+            <!-- <div class="form-group">
+                <label class="control-label" for="inputContact">*Email</label>
+                <input class="form-control" type="email" id="inputContact" name="inputContact"
+                       placeholder="Your email address" ng-model="projectboard.editedProject.contact"
+                       ng-required="true">
 
-                <div class="controls">
-                    <select ng-model="projectboard.editedProject.reporter" class="form-control"
-                        name="inputReporter" ng-required="true" ng-options="user.id as user.name for user in projectboard.users">
-                        <option value="">Please select...</option>
-                    </select>
-                    <div ng-class="{'alert alert-error alert-warning': projectboard.detailsForm.inputReporter.$invalid}"
-                         ng-messages="projectboard.detailsForm.inputReporter.$error"
-                         ng-if="projectboard.showMessages('inputReporter')">
+                <div class="alert alert-warning"
+                     ng-messages="projectboard.detailsForm.inputContact.$error"
+                     ng-if="projectboard.showMessages('inputContact')">
 
-                      <div ng-message="required">
+                    <div ng-message="required">
                         <small>Required!</small>
-                      </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="form-group">
                 <label class="control-label">*Assignee</label>
 
                 <div class="controls">
                     <select ng-model="projectboard.editedProject.assignee" class="form-control"
-                        name="inputAssignee" ng-required="true" ng-options="user.id as user.name for user in projectboard.users">
+                        name="inputAssignee" ng-required="false" ng-options="user.id as user.name for user in projectboard.users">
                         <option value="">Please select...</option>
                     </select>
 

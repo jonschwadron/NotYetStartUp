@@ -1,7 +1,7 @@
 angular.module('Notyetstartup.Projectboard')
   .controller('ProjectboardCtrl',
     function($scope, $log, ProjectsModel, UsersModel,
-      STORY_STATUSES, STORY_TYPES) {
+      ROLE_TYPES) {
       var projectboard = this;
 
       projectboard.detailsVisible = true;
@@ -10,8 +10,7 @@ angular.module('Notyetstartup.Projectboard')
       projectboard.editedProject = {};
       projectboard.projects = [];
 
-      projectboard.types = STORY_TYPES;
-      projectboard.statuses = STORY_STATUSES;
+      projectboard.roleTypes = ROLE_TYPES;
 
       projectboard.users = {};
 
@@ -25,6 +24,22 @@ angular.module('Notyetstartup.Projectboard')
         }, function(reason) {
           $log.debug('REASON', reason);
         });
+
+      projectboard.findUserById = function(id) {
+        angular.forEach(projectboard.users, function(user) {
+          if (user.id === id) {
+            return user;
+          }
+        });
+      };
+
+      projectboard.getNameFromId = function(id) {
+        return projectBoard.findUserById(id).name;
+      };
+
+      projectboard.getEmailFromId = function(id) {
+        return projectBoard.findUserById(id).email;
+      };
 
       projectboard.setCurrentProject = function(project) {
         $log.debug(project);
@@ -44,6 +59,8 @@ angular.module('Notyetstartup.Projectboard')
       };
 
       projectboard.createProject = function() {
+        projectboard.editedProject.contact = projectboard.getEmailFromId(
+          projectboard.editedProject.id);
         ProjectsModel.create(projectboard.editedProject)
           .then(function(result) {
             projectboard.getProjects();
@@ -95,11 +112,11 @@ angular.module('Notyetstartup.Projectboard')
         projectboard.detailsVisible = visible;
       };
 
-      projectboard.isEmptyStatus = function(status) {
+      projectboard.isEmptyRoleType = function(roleType) {
         var empty = true;
         if (projectboard.projects) {
           projectboard.projects.forEach(function(project) {
-            if (project.status === status) empty = false;
+            if (project.roleType === roleType) empty = false;
           });
         }
 
@@ -121,7 +138,7 @@ angular.module('Notyetstartup.Projectboard')
 
           projectboard.projects.splice(toIdx, 0, project);
 
-          project.status = target.status;
+          project.roleType = target.roleType;
         }
       };
 
@@ -134,8 +151,8 @@ angular.module('Notyetstartup.Projectboard')
           });
       };
 
-      projectboard.changeStatus = function(project, status) {
-        project.status = status.name;
+      projectboard.changeRoleType = function(project, roleType) {
+        project.roleType = roleType.name;
       };
 
       $scope.$on('projectDeleted', function() {
