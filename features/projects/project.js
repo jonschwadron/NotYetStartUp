@@ -7,6 +7,7 @@ var mongoose = require('mongoose'),
 
 var ProjectSchema = new Schema({
   requestor: Definitions.string(100, true),
+  requestorName: Definitions.string(100, false),
   requestorRole: Definitions.string(100, true),
   roleNeeded: Definitions.string(100, true),
   description: Definitions.string(100, false),

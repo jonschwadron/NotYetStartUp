@@ -61,6 +61,8 @@ angular.module('Notyetstartup.Projectboard')
       projectboard.createProject = function() {
         projectboard.editedProject.contact = projectboard.getEmailFromId(
           projectboard.editedProject.requestor);
+        projectboard.editedProject.requestorName = projectboard.getNameFromId(
+          projectboard.editedProject.requestor);
         ProjectsModel.create(projectboard.editedProject)
           .then(function(result) {
             projectboard.getProjects();
@@ -72,14 +74,19 @@ angular.module('Notyetstartup.Projectboard')
       };
 
       projectboard.updateProject = function() {
-        var fields = ['title', 'description', 'criteria', 'status', 'type',
-          'reporter', 'assignee'
+        var fields = ['requestor', 'requestorRole', 'roleNeeded',
+          'description', 'assignee'
         ];
 
         fields.forEach(function(field) {
           projectboard.currentProject[field] = projectboard.editedProject[
             field]
         });
+
+        projectboard.editedProject.contact = projectboard.getEmailFromId(
+          projectboard.editedProject.requestor);
+        projectboard.editedProject.requestorName = projectboard.getNameFromId(
+          projectboard.editedProject.requestor);
 
         ProjectsModel.update(projectboard.currentProjectId, projectboard.editedProject)
           .then(function(result) {
