@@ -40,7 +40,7 @@
                 <!-- <div drop-target="top" on-drag-enter="projectboard.insertAdjacent(project, data, true)" on-drop="projectboard.finalizeDrop(data)"></div>
                 <div drop-target="bottom" on-drag-enter="projectboard.insertAdjacent(project, data, false)" on-drop="projectboard.finalizeDrop(data)"></div> -->
 
-                <article>
+                <article style="padding: 5px;">
                     <div>
                       <button type="button" class="close" ng-click="userProject.deleteProject(project.id)">×</button>
                     </div>
@@ -56,6 +56,8 @@
                         <b>Say hi to</b>
                         <a href="mailto:{{::project.contact}}">this person</a>!
                         </p>
+                        <button>View</button>
+                        <button>Join</button>
                     </div>
 
                 </article>
