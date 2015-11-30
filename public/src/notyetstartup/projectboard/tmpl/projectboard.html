@@ -1,5 +1,5 @@
 <!-- Projects -->
-<div class="list-area-animation"
+<div style="margin-left: 400px;" class="list-area-animation"
      ng-class="{'list-area-expanded':!projectboard.detailsVisible}">
     <div class="list-wrapper">
         <ul class="list my-repeat-animation"
@@ -75,18 +75,7 @@
 <div class="details details-animation"
      ng-class="{'details-visible':projectboard.detailsVisible}">
     <div class="details-nav">
-        <div ng-if="!projectboard.detailsVisible">
-            <button class="btn pull-left btn-default"
-                    ng-click="projectboard.setDetailsVisible(true)">
-                <span class="glyphicon glyphicon-arrow-left"></span>
-            </button>
-        </div>
-        <div ng-if="projectboard.detailsVisible">
-            <button class="btn pull-right btn-default"
-                    ng-click="projectboard.setDetailsVisible(false)">
-                <span class="glyphicon glyphicon-arrow-right"></span>
-            </button>
-        </div>
+
     </div>
 
     <div ng-if="projectboard.detailsVisible" class="my-fade-animation">
