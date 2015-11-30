@@ -1,5 +1,5 @@
 #MEAN Stack App - NotYetStartUp
-Hello. I am Judge Funke. 
+Hello. I am Judge Funke.
 
 ![FunkeBot DevOps](https://cloud.githubusercontent.com/assets/3240217/11468585/c52b564e-971e-11e5-83eb-02dc9d830170.png)
 
@@ -18,6 +18,8 @@ Hello. I am Judge Funke.
 
 ## Description
 It is a job listing board for General Assembly students/instructors/alumni to find and work together to work on a project.
+
+[auth0.com](https://auth0.com/docs/quickstart/spa/angularjs/nodejs)
 
 ## Did Not Complete
 1. functionality for user to sign up for the projects
