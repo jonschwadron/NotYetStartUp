@@ -1,8 +1,8 @@
 html,
 html,
 body {
-    /*background-color: #36393D;*/
-    background: url(../img/chalkboard.jpg);
+    background-color: #36393D;
+    /*background: url(../img/bg-wood.jpg);*/
     overflow: hidden;
 }
 
