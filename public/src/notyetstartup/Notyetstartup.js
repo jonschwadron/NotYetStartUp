@@ -39,7 +39,7 @@ myModule.config(function($routeProvider, $httpProvider, $provide,
             .params['userId'] : $routeParams['userId'];
           return UsersModel.fetch(userId);
         },
-        stories: function($rootScope, ProjectsModel) {
+        projects: function($rootScope, ProjectsModel) {
           return ProjectsModel.all();
         }
       }
