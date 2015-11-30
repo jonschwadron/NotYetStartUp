@@ -27,8 +27,8 @@ angular.module('Notyetstartup.Projectboard')
 
       projectboard.findUserById = function(id) {
         for (var i = 0, len = projectboard.users.length; i < len; i++) {
-          if (projectboard.users[0].id === id) {
-            return projectboard.users[0];
+          if (projectboard.users[i].id === id) {
+            return projectboard.users[i];
           }
         }
       };
