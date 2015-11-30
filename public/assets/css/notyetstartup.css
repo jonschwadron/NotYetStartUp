@@ -15,7 +15,17 @@ body.loading .modal {
 }
 
 .homelink {
-  font-size: 1.5em;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.3em;
+  font-weight: 900;
+}
+
+.homelink a {
+  color: red;
+}
+
+.homelink a:hover {
+  color: red;
 }
 
 .modal {
