@@ -10,7 +10,7 @@ var ProjectSchema = new Schema({
   requestorName: Definitions.string(100, false),
   requestorRole: Definitions.string(100, true),
   roleNeeded: Definitions.string(100, true),
-  description: Definitions.string(100, false),
+  description: Definitions.string(1000, false),
   assignee: Definitions.string(100, false),
   contact: Definitions.string(100, true),
   status: Definitions.string(100, false),

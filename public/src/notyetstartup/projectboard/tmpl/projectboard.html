@@ -29,7 +29,7 @@
                     </div>
                 </article>
             </li> -->
-            <li style="color:black;"
+            <li style="color:black; margin-bottom: 10px;"
                 userproject
                 ng-repeat="project in projectboard.projects | filter: orderBy: 'createdAt':true"
                 drag-container="project" mime-type="application/x-nysu-status"
@@ -45,19 +45,15 @@
                       <button type="button" class="close" ng-click="userProject.deleteProject(project.id)">×</button>
                     </div>
                     <div>
-                        <p>
-                        {{::project.requestorName}}<br>
-                        <b>is a</b>
-                        {{::project.requestorRole}}<br>
-                        <b>looking for a</b>
-                        {{::project.roleNeeded}}<br>
-                        <b>for help with</b>
-                        {{::project.description}}<br>
-                        <b>Say hi to</b>
+                      <p>
+                        {{::project.requestorName}}<br><b>is a</b>
+                        {{::project.requestorRole}}<br><b>looking for a</b>
+                        {{::project.roleNeeded}}<br><b>for help with</b>
+                        {{::project.description}}<br><b>Say hi to</b>
                         <a href="mailto:{{::project.contact}}">this person</a>!
-                        </p>
-                        <button type="button" class="btn btn-primary btn-sm">View</button>
-                        <button type="button" class="btn btn-primary btn-sm">Join</button>
+                      </p>
+                      <button type="button" class="btn btn-primary btn-sm">View</button>
+                      <button type="button" class="btn btn-primary btn-sm">Join</button>
                     </div>
                 </article>
             </li>
