@@ -22,19 +22,13 @@
             <div class="navbar-header pull-left">
                 <a class="logo navbar-brand" href="#/">
                     <!-- <img src="assets/img/nysu.png"> -->
-                    <h4><strong>Not yet Start Up</strong></h4>
+                    <h4><strong>NOT YET START UP</strong></h4>
                 </a>
             </div>
-            <div class="btn-group pull-right" ng-show="main.currentUser">
-                <a class="btn btn-primary" href="#/">
-                    <span class="glyphicon glyphicon-home"></span>
-                </a>
-                <a class="btn btn-primary" href="#/users">
-                    <span class="glyphicon glyphicon-user"></span>
-                </a>
-                <button class="btn btn-default" ng-click="main.logout()">
-                    <span class="glyphicon glyphicon-log-out"></span>
-                </button>
+            <div class="btn-group pull-right homelink" ng-show="main.currentUser">
+                <a href="#/">HOME</a> |
+                <a href="#/users">USER</a> |
+                <a href="" ng-click="main.logout()">LOG OUT</a>
             </div>
         </div>
 
