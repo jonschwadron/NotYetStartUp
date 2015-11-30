@@ -38,7 +38,7 @@ angular.module('Notyetstartup.Projectboard')
       };
 
       projectboard.getEmailFromId = function(id) {
-        return projectboard.findUserById(id).contact;
+        return projectboard.findUserById(id).email;
       };
 
       projectboard.setCurrentProject = function(project) {
