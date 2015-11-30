@@ -34,11 +34,11 @@ angular.module('Notyetstartup.Projectboard')
       };
 
       projectboard.getNameFromId = function(id) {
-        return projectBoard.findUserById(id).name;
+        return projectboard.findUserById(id).name;
       };
 
       projectboard.getEmailFromId = function(id) {
-        return projectBoard.findUserById(id).email;
+        return projectboard.findUserById(id).email;
       };
 
       projectboard.setCurrentProject = function(project) {
@@ -60,7 +60,7 @@ angular.module('Notyetstartup.Projectboard')
 
       projectboard.createProject = function() {
         projectboard.editedProject.contact = projectboard.getEmailFromId(
-          projectboard.editedProject.id);
+          projectboard.editedProject.requestor);
         ProjectsModel.create(projectboard.editedProject)
           .then(function(result) {
             projectboard.getProjects();
